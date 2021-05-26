@@ -13,6 +13,7 @@ class CasesDeathsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ContentLayout(
       futureContent: futureContent,
+      pageName: 'Cases/Deaths Page',
     );
   }
 }

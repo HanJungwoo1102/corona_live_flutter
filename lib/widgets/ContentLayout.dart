@@ -1,19 +1,23 @@
 import 'dart:developer' as developer;
 import 'package:corona_live_flutter/widgets/Graph.dart';
 import 'package:corona_live_flutter/widgets/SimpleTable.dart';
+import 'package:corona_live_flutter/lib/PreviousPageProvider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ContentLayout extends StatelessWidget {
   ContentLayout({
     Key key,
     this.futureContent,
+    this.pageName,
   }) : super(key: key);
-
+  final String pageName;
   final Future<Content> futureContent;
 
   @override
   Widget build(BuildContext context) {
+    final previousPageProvider = Provider.of<PreviousPageProvider>(context);
     Color borderColor = Theme.of(context).dividerColor;
 
     return Scaffold(
@@ -111,7 +115,9 @@ class ContentLayout extends StatelessWidget {
                               ),
                               Container(
                                 height: 220,
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                                padding: const EdgeInsets.only(
+                                  left: 0, right: 40, top: 20, bottom: 20,
+                                ),
                                 decoration: BoxDecoration(
                                   border: Border(
                                     top: BorderSide( //                   <--- left side
@@ -198,7 +204,10 @@ class ContentLayout extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () {
+          Navigator.pop(context);
+          previousPageProvider.visit(pageName);
+        },
         child: Icon(Icons.list),
       ),
     );

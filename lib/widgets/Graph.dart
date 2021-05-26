@@ -15,21 +15,20 @@ class Graph extends StatelessWidget {
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              getTextStyles: (value) =>
-                const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
-                getTitles: (value) {
-                  return '${points[value.toInt()].xLabel}';
-                },
+              getTitles: (value) {
+                return '${points[value.toInt()].xLabel}';
+              },
             ),
           ),
           lineBarsData: [
             LineChartBarData(
               spots: points.map<FlSpot>((item) => FlSpot(item.x, item.y)).toList(),
               colors: [
-                const Color(0xff4af699),
+                Theme.of(context).primaryColor,
               ],
             ),
-          ]
+          ],
+          borderData: FlBorderData(show: false),
         ),
       ),
     );

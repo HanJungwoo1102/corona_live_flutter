@@ -11,6 +11,7 @@ class VaccinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ContentLayout(
       futureContent: fetchContent(http.Client()),
+      pageName: 'Vaccine Page',
     );
   }
 }

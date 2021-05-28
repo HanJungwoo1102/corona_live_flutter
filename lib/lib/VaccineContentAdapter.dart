@@ -7,145 +7,177 @@ import 'package:corona_live_flutter/widgets/SimpleTable.dart';
 
 class VaccineContentAdapter {
   static Content adapt(List<CountryVaccineInfo> countryVaccineInfos) {
-    int totalVacc = 0;
-    String parsedLatestDate = '';
-    int totalFullyVacc = 0;
-    int dailyVacc = 0;
+    final indexOfKorea = countryVaccineInfos.indexWhere((element) => element.country == 'South Korea');
+    final koreaVaccineInfo = countryVaccineInfos.elementAt(indexOfKorea);
+    final parsedDateTime = koreaVaccineInfo.vaccineStatusList[koreaVaccineInfo.vaccineStatusList.length - 1].date;
 
-    countryVaccineInfos.forEach((info) {
-      final latestVaccineStatus = info.vaccineStatusList[info.vaccineStatusList.length - 1];
-
-      if (latestVaccineStatus.totalVaccinations != null) {
-        totalVacc += latestVaccineStatus.totalVaccinations;
-      } else if (latestVaccineStatus.peopleVaccinated != null) {
-        totalVacc += latestVaccineStatus.peopleVaccinated;
-      } else if (latestVaccineStatus.peopleFullyVaccinated != null) {
-        totalVacc += latestVaccineStatus.peopleFullyVaccinated;
-      }
-
-      if (latestVaccineStatus.peopleFullyVaccinated != null) {
-        totalFullyVacc += latestVaccineStatus.peopleFullyVaccinated;
-      } else {
-        if (info.vaccineStatusList.length > 1) {
-          final priorVaccineStatus = info.vaccineStatusList[info.vaccineStatusList.length - 2];
-          if (priorVaccineStatus.peopleFullyVaccinated != null) {
-            totalFullyVacc += priorVaccineStatus.peopleFullyVaccinated;
-          }
-        }
-      }
-
-      if (latestVaccineStatus.peopleFullyVaccinated != null) {
-        totalFullyVacc += latestVaccineStatus.peopleFullyVaccinated;
-      } else {
-        if (info.vaccineStatusList.length > 1) {
-          final priorVaccineStatus = info.vaccineStatusList[info.vaccineStatusList.length - 2];
-          if (priorVaccineStatus.peopleFullyVaccinated != null) {
-            totalFullyVacc += priorVaccineStatus.peopleFullyVaccinated;
-          }
-        }
-      }
-
-      if (latestVaccineStatus.dailyVaccinations != null) {
-        dailyVacc += latestVaccineStatus.dailyVaccinations;
-      } else {
-        if (info.vaccineStatusList.length > 1) {
-          final priorVaccineStatus = info.vaccineStatusList[info.vaccineStatusList.length - 2];
-          if (priorVaccineStatus.dailyVaccinations != null) {
-            dailyVacc += priorVaccineStatus.dailyVaccinations;
-          }
-        }
-      }
-
-      if (info.country == 'South Korea') {
-        parsedLatestDate = latestVaccineStatus.date;
-      }
-    });
+    final firstBoxListItems = getFirstBoxItems(parsedDateTime, countryVaccineInfos);
+    final graphs = getGraphs(parsedDateTime, countryVaccineInfos);
+    final tables = getTables(parsedDateTime, countryVaccineInfos);
 
     return Content(
-      firstBoxListItems: [
-        FirstBoxListItem(
-          label: 'Total Vacc.',
-          value: '$totalVacc people',
-        ),
-        FirstBoxListItem(
-            label: 'Parsed latest date',
-            value: parsedLatestDate,
-        ),
-        FirstBoxListItem(
-          label: 'Total fully Vacc.',
-          value: '$totalFullyVacc people',
-        ),
-        FirstBoxListItem(
-          label: 'Dally Vacc',
-          value: '$dailyVacc people',
-        ),
-      ],
-      graphs: [
-        [
-          GraphPoint(x: 0, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 1, y: 2, xLabel: 'hihi'),
-          GraphPoint(x: 2, y: 3, xLabel: 'hihi'),
-          GraphPoint(x: 3, y: 4, xLabel: 'hihi'),
-          GraphPoint(x: 4, y: 3, xLabel: 'hihi'),
-          GraphPoint(x: 5, y: 2, xLabel: 'hihi'),
-          GraphPoint(x: 6, y: 6, xLabel: 'hihi'),
-          GraphPoint(x: 7, y: 7, xLabel: 'hihi'),
-        ],
-        [
-          GraphPoint(x: 0, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 1, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 2, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 3, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 4, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 5, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 6, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 7, y: 1, xLabel: 'hihi'),
-        ],
-        [
-          GraphPoint(x: 0, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 1, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 2, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 3, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 4, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 5, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 6, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 7, y: 1, xLabel: 'hihi'),
-        ],
-        [
-          GraphPoint(x: 0, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 1, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 2, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 3, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 4, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 5, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 6, y: 1, xLabel: 'hihi'),
-          GraphPoint(x: 7, y: 1, xLabel: 'hihi'),
-        ],
-      ],
-      tables: [
-        TableContent(
-          rows: [
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-          ]
-        ),
-        TableContent(
-          rows: [
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-            ['item1', 'item2', 'item3', 'item4'],
-          ]
-        )
-      ]
+      firstBoxListItems: firstBoxListItems,
+      graphs: graphs,
+      tables: tables,
     );
   }
+}
+
+class DateTimeData {
+  final int totalVacc;
+  final int totalFullyVacc;
+  final int dailyVacc;
+
+  DateTimeData({ this.totalVacc, this.totalFullyVacc, this.dailyVacc });
+}
+
+VaccineStatus getPriorDateVaccineStatus(List<VaccineStatus> list, DateTime date) {
+  final priorDate = DateTime(
+    date.year,
+    date.month,
+    date.day - 1,
+  );
+
+  final findedIndex = list.indexWhere((element) => priorDate.difference(element.date) == 0);
+
+  return findedIndex == -1 ? null : list[findedIndex];
+}
+
+DateTimeData getDateTimeData(DateTime parsedDate, List<CountryVaccineInfo> data) {
+  int totalVacc = 0;
+  int totalFullyVacc = 0;
+  int dailyVacc = 0;
+
+  data.forEach((countryData) {
+    int parsedDateIndex = countryData.vaccineStatusList.indexWhere((element) => parsedDate.difference(element.date).inDays == 0);
+
+    parsedDateIndex = parsedDateIndex == -1 ? countryData.vaccineStatusList.length - 1 : parsedDateIndex;
+
+    final parsedDateVaccineStatus = countryData.vaccineStatusList[parsedDateIndex];
+
+    if (parsedDateVaccineStatus.totalVaccinations != null) {
+      totalVacc += parsedDateVaccineStatus.totalVaccinations;
+    } else if (parsedDateVaccineStatus.peopleVaccinated != null) {
+      totalVacc += parsedDateVaccineStatus.peopleVaccinated;
+    } else if (parsedDateVaccineStatus.peopleFullyVaccinated != null) {
+      totalVacc += parsedDateVaccineStatus.peopleFullyVaccinated;
+    }
+
+    if (parsedDateVaccineStatus.peopleFullyVaccinated != null) {
+      totalFullyVacc += parsedDateVaccineStatus.peopleFullyVaccinated;
+    } else {
+      final priorDateVaccineStatus = getPriorDateVaccineStatus(countryData.vaccineStatusList, parsedDate);
+      if (priorDateVaccineStatus != null && priorDateVaccineStatus.peopleFullyVaccinated != null) {
+        totalFullyVacc += priorDateVaccineStatus.peopleFullyVaccinated;
+      }
+    }
+
+    if (parsedDateVaccineStatus.dailyVaccinations != null) {
+      dailyVacc += parsedDateVaccineStatus.dailyVaccinations;
+    } else {
+      final priorDateVaccineStatus = getPriorDateVaccineStatus(countryData.vaccineStatusList, parsedDate);
+      if (priorDateVaccineStatus != null && priorDateVaccineStatus.dailyVaccinations != null) {
+        dailyVacc += priorDateVaccineStatus.dailyVaccinations;
+      }
+    }
+  });
+
+  return DateTimeData(totalVacc: totalVacc, totalFullyVacc: totalFullyVacc, dailyVacc: dailyVacc);
+}
+
+List<FirstBoxListItem> getFirstBoxItems(DateTime parsedDate, List<CountryVaccineInfo> data) {
+  final dateTimeDate = getDateTimeData(parsedDate, data);
+  return [
+    FirstBoxListItem(
+      label: 'Total Vacc.',
+      value: '${dateTimeDate.totalVacc} people',
+    ),
+    FirstBoxListItem(
+      label: 'Parsed latest date',
+      value: '${parsedDate.year}-${parsedDate.month}-${parsedDate.day}',
+    ),
+    FirstBoxListItem(
+      label: 'Total fully Vacc.',
+      value: '${dateTimeDate.totalFullyVacc} people',
+    ),
+    FirstBoxListItem(
+      label: 'Dally Vacc',
+      value: '${dateTimeDate.dailyVacc} people',
+    ),
+  ];
+}
+
+List<List<GraphPoint>> getGraphs(DateTime parsedDate, List<CountryVaccineInfo> data) {
+  final graph1Points = <GraphPoint>[];
+  final graph2Points = <GraphPoint>[];
+  final graph3Points = <GraphPoint>[];
+  final graph4Points = <GraphPoint>[];
+
+  for (int i = 0; i < 7; i++) {
+    final date = DateTime(parsedDate.year, parsedDate.month, parsedDate.day - i);
+    final DateTimeDate = getDateTimeData(date, data);
+
+    final point = GraphPoint(x: (7 - i).toDouble(), y: DateTimeDate.totalVacc.toDouble(), xLabel: '${date.month}-${date.day}');
+
+    graph1Points.add(point);
+  }
+
+  for (int i = 0; i < 7; i++) {
+    final date = DateTime(parsedDate.year, parsedDate.month, parsedDate.day - i);
+    final DateTimeDate = getDateTimeData(date, data);
+
+    final point = GraphPoint(x: (7 - i).toDouble(), y: DateTimeDate.dailyVacc.toDouble(), xLabel: '${date.month}-${date.day}');
+    graph2Points.add(point);
+  }
+
+  for (int i = 0; i < 28; i++) {
+    final date = DateTime(parsedDate.year, parsedDate.month, parsedDate.day - i);
+    final DateTimeDate = getDateTimeData(date, data);
+
+    final point = GraphPoint(x: (28 - i).toDouble(), y: DateTimeDate.totalVacc.toDouble(), xLabel: '${date.month}-${date.day}');
+
+    graph3Points.add(point);
+  }
+
+  for (int i = 0; i < 28; i++) {
+    final date = DateTime(parsedDate.year, parsedDate.month, parsedDate.day - i);
+    final DateTimeDate = getDateTimeData(date, data);
+
+    final point = GraphPoint(x: (28 - i).toDouble(), y: DateTimeDate.dailyVacc.toDouble(), xLabel: '${date.month}-${date.day}');
+    graph4Points.add(point);
+  }
+
+  return [
+    graph1Points,
+    graph2Points,
+    graph3Points,
+    graph4Points,
+  ];
+}
+
+List<TableContent> getTables(DateTime date, List<CountryVaccineInfo> data) {
+  return [
+    TableContent(
+        rows: [
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+        ]
+    ),
+    TableContent(
+        rows: [
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+          ['item1', 'item2', 'item3', 'item4'],
+        ]
+    )
+  ];
 }

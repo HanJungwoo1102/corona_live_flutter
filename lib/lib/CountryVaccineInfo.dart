@@ -16,7 +16,7 @@ class CountryVaccineInfo {
 }
 
 class VaccineStatus {
-  final String date;
+  final DateTime date;
   final int totalVaccinations;
   final int peopleVaccinated;
   final int peopleFullyVaccinated;
@@ -28,7 +28,7 @@ class VaccineStatus {
 
   factory VaccineStatus.fromJson(Map<String, dynamic> json) {
     return VaccineStatus(
-      date: json['date'],
+      date: DateTime.parse(json['date']),
       totalVaccinations: json['total_vaccinations'],
       peopleVaccinated: json['people_vaccinated'],
       peopleFullyVaccinated: json['people_fully_vaccinated'],

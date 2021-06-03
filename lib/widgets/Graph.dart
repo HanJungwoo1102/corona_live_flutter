@@ -15,7 +15,7 @@ class Graph extends StatelessWidget {
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              getTitles: (value) => '${points[value.toInt() - 1].xLabel}',
+              getTitles: (value) => '${points[value.toInt()].xLabel}',
             ),
           ),
           lineBarsData: [

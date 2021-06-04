@@ -163,8 +163,8 @@ class ContentLayout extends StatelessWidget {
                             children: [
                               TabBar(
                                 tabs: [
-                                  Tab(child: Text('Graph1', style: TextStyle(color: Theme.of(context).primaryColor))),
-                                  Tab(child: Text('Graph2', style: TextStyle(color: Theme.of(context).primaryColor))),
+                                  Tab(child: Text(snapshot.data.tableNames[0], style: TextStyle(color: Theme.of(context).primaryColor))),
+                                  Tab(child: Text(snapshot.data.tableNames[1], style: TextStyle(color: Theme.of(context).primaryColor))),
                                 ],
                               ),
                               Container(
@@ -215,8 +215,9 @@ class Content {
   final List<FirstBoxListItem> firstBoxListItems;
   final List<List<GraphPoint>> graphs;
   final List<TableContent> tables;
+  final List<String> tableNames;
 
-  Content({this.firstBoxListItems, this.graphs, this.tables});
+  Content({this.firstBoxListItems, this.graphs, this.tables, this.tableNames});
 }
 
 class FirstBoxListItem {

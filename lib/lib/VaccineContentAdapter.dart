@@ -19,6 +19,7 @@ class VaccineContentAdapter {
       firstBoxListItems: firstBoxListItems,
       graphs: graphs,
       tables: tables,
+      tableNames: ['Country Name', 'Total Vacc.'],
     );
   }
 }

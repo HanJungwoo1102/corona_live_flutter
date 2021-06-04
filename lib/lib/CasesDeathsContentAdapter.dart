@@ -17,6 +17,7 @@ class CasesDeathsContentAdapter {
       firstBoxListItems: firstBoxListItems,
       graphs: graphs,
       tables: tables,
+      tableNames: ['Total Cases', 'Total Deaths'],
     );
   }
 }
@@ -182,14 +183,14 @@ List<TableContent> getTables(DateTime parsedDate, List<CountryCasesDeathsInfo> d
     countryDateTimeDataList.add(map);
   });
 
-  countryDateTimeDataList.sort((Map<String, DateTimeData> a, Map<String, DateTimeData> b) => a.keys.first.compareTo(b.keys.first));
+  countryDateTimeDataList.sort((Map<String, DateTimeData> a, Map<String, DateTimeData> b) => b.values.first.totalCases.compareTo(a.values.first.totalCases));
 
   for (int i = 0; i < 7; i++) {
     final dateTimeData = countryDateTimeDataList[i];
     firstTableRows.add([dateTimeData.keys.first, '${dateTimeData.values.first.totalCases.toInt()}', '${dateTimeData.values.first.dailyCases.toInt()}', '${dateTimeData.values.first.totalDeaths.toInt()}']);
   }
 
-  countryDateTimeDataList.sort((Map<String, DateTimeData> a, Map<String, DateTimeData> b) => b.values.first.totalCases.compareTo(a.values.first.totalCases));
+  countryDateTimeDataList.sort((Map<String, DateTimeData> a, Map<String, DateTimeData> b) => b.values.first.totalDeaths.compareTo(a.values.first.totalDeaths));
 
   for (int i = 0; i < 7; i++) {
     final dateTimeData = countryDateTimeDataList[i];

@@ -9,6 +9,9 @@ class Graph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(
+        left: 0, right: 40, top: 20, bottom: 20,
+      ),
       child: LineChart(
         LineChartData(
           titlesData: FlTitlesData(

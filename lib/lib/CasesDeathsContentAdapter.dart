@@ -186,26 +186,26 @@ List<TableContent> getTables(DateTime parsedDate, List<CountryCasesDeathsInfo> d
 
   for (int i = 0; i < 7; i++) {
     final dateTimeData = countryDateTimeDataList[i];
-    firstTableRows.add([dateTimeData.keys.first, '${dateTimeData.values.first.totalCases.toInt()}', '${dateTimeData.values.first.totalDeaths.toInt()}', '${dateTimeData.values.first.dailyCases.toInt()}']);
+    firstTableRows.add([dateTimeData.keys.first, '${dateTimeData.values.first.totalCases.toInt()}', '${dateTimeData.values.first.dailyCases.toInt()}', '${dateTimeData.values.first.totalDeaths.toInt()}']);
   }
 
   countryDateTimeDataList.sort((Map<String, DateTimeData> a, Map<String, DateTimeData> b) => b.values.first.totalCases.compareTo(a.values.first.totalCases));
 
   for (int i = 0; i < 7; i++) {
     final dateTimeData = countryDateTimeDataList[i];
-    secondTableRows.add([dateTimeData.keys.first, '${dateTimeData.values.first.totalCases.toInt()}', '${dateTimeData.values.first.totalDeaths.toInt()}', '${dateTimeData.values.first.dailyCases.toInt()}']);
+    secondTableRows.add([dateTimeData.keys.first, '${dateTimeData.values.first.totalCases.toInt()}', '${dateTimeData.values.first.dailyCases.toInt()}', '${dateTimeData.values.first.totalDeaths.toInt()}']);
   }
 
   return [
     TableContent(
         rows: [
-          ['Country', 'Total', 'Fully', 'Daily'],
+          ['Country', 'Total Cases', 'Daily Cases', 'Total Deaths'],
           ...firstTableRows,
         ]
     ),
     TableContent(
         rows: [
-          ['Country', 'Total', 'Fully', 'Daily'],
+          ['Country', 'Total Cases', 'Daily Cases', 'Total Deaths'],
           ...secondTableRows
         ]
     )

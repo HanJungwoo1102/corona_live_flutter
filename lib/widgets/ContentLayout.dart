@@ -115,9 +115,6 @@ class ContentLayout extends StatelessWidget {
                               ),
                               Container(
                                 height: 220,
-                                padding: const EdgeInsets.only(
-                                  left: 0, right: 40, top: 20, bottom: 20,
-                                ),
                                 decoration: BoxDecoration(
                                   border: Border(
                                     top: BorderSide( //                   <--- left side

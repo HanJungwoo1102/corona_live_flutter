@@ -1,6 +1,3 @@
-import 'dart:convert' ;
-import 'dart:developer' as developer;
-
 class CountryVaccineInfo {
   final String country;
   final List<VaccineStatus> vaccineStatusList;

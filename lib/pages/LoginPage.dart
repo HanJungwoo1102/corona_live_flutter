@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('2016311595 Jungwoo Han'),
+        title: Text('Corona Live'),
       ),
       body: Column(
         children: [
